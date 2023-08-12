@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+   
+</head>
+<body>
+    <h1 id="heading"> Heading</h1>
+    <input type="text" id="name">
+    <input type="text" id="email">
+    <input type="text" id="mobile">
+    <button type="button" id="btn">Send data</button>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script>
+    $(document).ready(function(){
+        $("#btn").click(function(){
+            $name=$("#name").val();
+            $email=$("#email").val();
+            $mobile=$("#mobile").val();
+            var headers = {
+                "X-CSRFToken": csrf_token
+            }
+            $.ajax({
+                type: 'POST',
+                url: "getdata",
+                data:{newname:$name,newemail:$email,newmobile:$mobile},
+                dataType:'text',
+                contentType:'text/plain',
+                success: function(resp){
+                    $('#heading').text(resp);
+                },
+                error: function(){
+                    console.log('error Getting in data');
+                }
+            });
+        });
+    });
+    </script>
+</body>
+</html>
